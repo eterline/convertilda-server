@@ -9,11 +9,13 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"gorm.io/gorm"
 )
 
 type Server struct {
 	app      *fiber.App
 	settings settings.Config
+	db       *gorm.DB
 }
 
 func (s *Server) Run() {
@@ -23,10 +25,11 @@ func (s *Server) Run() {
 	s.app.Listen(addr)
 }
 
-func New(cfg settings.Config) *Server {
+func New(cfg settings.Config, db *gorm.DB) *Server {
 	return &Server{
 		app:      fiber.New(),
 		settings: cfg,
+		db:       db,
 	}
 }
 
@@ -40,5 +43,5 @@ func (s *Server) routeInit() {
 		Root:   http.Dir("./converted"),
 		Browse: true,
 	}))
-	s.app.Post("/api/convert/document", s.document)
+	s.app.Post("/api/convert/documents", s.document)
 }

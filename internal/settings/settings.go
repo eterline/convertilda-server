@@ -9,6 +9,7 @@ import (
 type Config struct {
 	Adress
 	Logging
+	DbName string
 }
 
 type Adress struct {
