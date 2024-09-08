@@ -27,6 +27,7 @@ func MustArgs() Config {
 	LogPath := flag.String("log", "./logs/", "Path for log files.")
 	LogLevel := flag.Int("level", 1, "Logging level.")
 	DbName := flag.String("db", "app-api.db", "Set name for database.")
+
 	flag.Parse()
 	addr := Adress{
 		IP:   []byte(*ip),
