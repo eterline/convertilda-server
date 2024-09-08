@@ -9,4 +9,5 @@ type ConvertFiles struct {
 	OutFile    string `json:"outpit_file"`
 	Target     string `json:"target_ext"`
 	FileType   string `json:"type"`
+	URL        string `json:"link"`
 }

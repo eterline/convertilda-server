@@ -8,19 +8,8 @@ import (
 )
 
 func main() {
-	addr := settings.Adress{
-		IP:   []byte("0.0.0.0"),
-		Port: 8080,
-	}
-	logs := settings.Logging{
-		LogPath:  "./logs/",
-		LogLevel: 1,
-	}
-	cfg := settings.Config{
-		Adress:  addr,
-		Logging: logs,
-		DbName:  "test.db",
-	}
+	cfg := settings.MustArgs()
+
 	logging.InitLogfile(cfg.Logging)
 	db := database.ConnDB(cfg)
 	srv := api.New(cfg, db)

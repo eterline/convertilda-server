@@ -35,7 +35,6 @@ func New(cfg settings.Config, db *gorm.DB) *Server {
 
 func (s *Server) routeInit() {
 
-	// TODO: Вынести логгер в отдельное место и настроить его в запись файла.
 	s.app.Use(logger.New(logger.Config{
 		Format: "[${ip}]:${port} ${status} - ${method} ${path}\n",
 	}))
@@ -43,5 +42,6 @@ func (s *Server) routeInit() {
 		Root:   http.Dir("./converted"),
 		Browse: true,
 	}))
-	s.app.Post("/api/convert/documents", s.document)
+	s.app.Post("/api/convert/:filetype", s.process)
+	s.app.Get("/converted/:filename", s.sendFile)
 }
