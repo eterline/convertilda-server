@@ -7,6 +7,7 @@ import (
 
 	"github.com/eterline/convertilda-api/internal/settings"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/filesystem"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"gorm.io/gorm"
@@ -42,6 +43,9 @@ func (s *Server) routeInit() {
 		Root:   http.Dir("./converted"),
 		Browse: true,
 	}))
+
+	s.app.Use(cors.New())
+
 	s.app.Post("/api/convert/:filetype", s.process)
 	s.app.Get("/converted/:filename", s.sendFile)
 }

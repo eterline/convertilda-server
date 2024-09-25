@@ -55,7 +55,7 @@ func (s *Server) process(c *fiber.Ctx) error {
 	}
 
 	res := File{
-		URL: "/converted/" + strings.Split(converTo.Output, ".")[0] + "." + converTo.Target,
+		URL: c.BaseURL() + "/converted/" + strings.Split(converTo.Output, ".")[0] + "." + converTo.Target,
 	}
 	r, err := json.Marshal(res)
 	if err != nil {
